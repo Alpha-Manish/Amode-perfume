@@ -183,16 +183,21 @@ const Home = () => {
             viewport={{ once: true, margin: "-100px" }}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
           >
-            {['Floral', 'Woody', 'Fresh', 'Oriental'].map((category, idx) => (
-              <motion.div variants={fadeInUp} key={category} className="group relative aspect-square overflow-hidden cursor-pointer">
+            {[
+              { name: 'Floral', image: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=600&auto=format&fit=crop' },
+              { name: 'Woody', image: 'https://images.unsplash.com/photo-1590156546946-ce55a12a6a5d?q=80&w=600&auto=format&fit=crop' },
+              { name: 'Fresh', image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=600&auto=format&fit=crop' },
+              { name: 'Oriental', image: 'https://images.unsplash.com/photo-1615634260167-c8cdede054de?q=80&w=600&auto=format&fit=crop' }
+            ].map((category) => (
+              <motion.div variants={fadeInUp} key={category.name} className="group relative aspect-square overflow-hidden cursor-pointer">
                 <img 
-                  src={`https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=600&auto=format&fit=crop&sig=${idx}`} 
-                  alt={category}
+                  src={category.image} 
+                  alt={category.name}
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-60 group-hover:opacity-40"
                 />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <h3 className="font-serif text-3xl tracking-wide uppercase group-hover:text-[var(--color-amode-gold)] transition-colors duration-300">
-                    {category}
+                    {category.name}
                   </h3>
                 </div>
               </motion.div>

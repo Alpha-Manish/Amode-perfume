@@ -2,8 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { fadeInUp } from '../animations/variants';
+import { useCart } from '../context/CartContext';
 
-const ProductCard = ({ image, name, price, description, slug }) => {
+const ProductCard = ({ image, name, price, description, slug, ...productRest }) => {
+  const { addToCart } = useCart();
+  const product = { image, name, price, description, slug, ...productRest };
+
   return (
     <motion.div variants={fadeInUp} className="group flex flex-col cursor-pointer">
       <Link to={`/product/${slug}`} className="block">
@@ -26,7 +30,7 @@ const ProductCard = ({ image, name, price, description, slug }) => {
               whileTap={{ scale: 0.98 }}
               onClick={(e) => {
                 e.preventDefault();
-                // We would normally dispatch an Add to Cart action here
+                addToCart(product, 1);
               }}
               className="w-full bg-[var(--color-amode-ivory)] text-[var(--color-amode-black)] px-6 py-3 text-xs tracking-[0.2em] uppercase font-medium hover:bg-[var(--color-amode-gold)] hover:text-white transition-colors duration-300 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100"
             >

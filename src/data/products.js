@@ -47,7 +47,7 @@ export const products = [
     originalPrice: 160.00,
     size: "100ml",
     category: "Perfume",
-    image: "https://images.unsplash.com/photo-1595425970377-c9703bc486fa?q=80&w=1000&auto=format&fit=crop",
+    image: "/Bergamot.jpg",
     shortDescription: "Fresh & Zesty",
     description: "Capturing the essence of a Mediterranean summer, Bergamot Citrus is an uplifting explosion of sun-drenched lemons, bitter bergamot, and crisp sea salt, grounded by soft white musks.",
     fragranceFamily: "Fresh",
