@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import Container from '../components/Container';
 import Button from '../components/Button';
 import SectionHeading from '../components/SectionHeading';
 import { useCart } from '../context/CartContext';
+import { staggerContainer, fadeInUp } from '../animations/variants';
 
 const Cart = () => {
   const { cartItems, removeFromCart, updateQuantity, clearCart, cartTotal, cartItemCount } = useCart();
@@ -41,10 +43,21 @@ const Cart = () => {
               <div className="col-span-2 text-right">Total</div>
             </div>
 
-            <div className="flex flex-col gap-8">
-              {cartItems.map(item => (
-                <div key={item.product.id} className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center border-b border-gray-200 pb-8">
-                  {/* Mobile structure is different from desktop, but we handle via flex/grid */}
+            <motion.div 
+              variants={staggerContainer}
+              initial="hidden"
+              animate="show"
+              className="flex flex-col gap-8"
+            >
+              <AnimatePresence>
+                {cartItems.map(item => (
+                  <motion.div 
+                    variants={fadeInUp}
+                    exit={{ opacity: 0, x: -50, transition: { duration: 0.3 } }}
+                    key={item.product.id} 
+                    className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center border-b border-gray-200 pb-8"
+                  >
+                    {/* Mobile structure is different from desktop, but we handle via flex/grid */}
                   <div className="col-span-1 md:col-span-6 flex gap-6">
                     <Link to={`/product/${item.product.slug}`} className="w-24 h-32 flex-shrink-0 bg-[var(--color-amode-cream)]">
                       <img src={item.product.image} alt={item.product.name} className="w-full h-full object-cover" />
@@ -96,9 +109,10 @@ const Cart = () => {
                     <span className="md:hidden text-gray-400 uppercase text-xs tracking-widest mr-2">Total:</span>
                     ${(item.product.price * item.quantity).toFixed(2)}
                   </div>
-                </div>
-              ))}
-            </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </motion.div>
 
             <div className="mt-8 flex justify-between items-center">
               <Link to="/shop" className="font-sans text-xs uppercase tracking-widest text-[var(--color-amode-charcoal)] hover:text-[var(--color-amode-gold)] transition-colors">
@@ -114,7 +128,12 @@ const Cart = () => {
           </div>
 
           {/* Order Summary */}
-          <div className="w-full lg:w-1/3">
+          <motion.div 
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="w-full lg:w-1/3"
+          >
             <div className="bg-white p-8 border border-[var(--color-amode-cream)] shadow-sm">
               <h2 className="font-serif text-2xl mb-6 text-[var(--color-amode-black)] border-b border-[var(--color-amode-cream)] pb-4">Order Summary</h2>
               
@@ -142,7 +161,7 @@ const Cart = () => {
                 Taxes and shipping calculated at checkout. <br/> Complimentary shipping on orders over $150.
               </p>
             </div>
-          </div>
+          </motion.div>
         </div>
       </Container>
     </div>

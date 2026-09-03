@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import Container from '../components/Container';
 import Button from '../components/Button';
 import ProductCard from '../components/ProductCard';
 import SectionHeading from '../components/SectionHeading';
 import { products } from '../data/products';
 import { useCart } from '../context/CartContext';
+import { staggerContainer, fadeInUp, scaleUpImage } from '../animations/variants';
 
 const ProductDetails = () => {
   const { slug } = useParams();
@@ -79,25 +81,31 @@ const ProductDetails = () => {
   return (
     <div className="pt-32 pb-24 min-h-screen bg-[var(--color-amode-ivory)]">
       <Container>
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 mb-24">
+        <motion.div 
+          variants={staggerContainer}
+          initial="hidden"
+          animate="show"
+          className="flex flex-col lg:flex-row gap-12 lg:gap-20 mb-24"
+        >
           {/* Image */}
-          <div className="w-full lg:w-1/2">
-            <div className="relative aspect-[3/4] bg-[var(--color-amode-cream)]">
+          <motion.div variants={fadeInUp} className="w-full lg:w-1/2">
+            <div className="relative aspect-[3/4] bg-[var(--color-amode-cream)] overflow-hidden">
               {hasDiscount && (
                 <div className="absolute top-4 left-4 z-10 bg-[var(--color-amode-black)] text-[var(--color-amode-ivory)] px-4 py-1 font-sans text-xs uppercase tracking-widest">
                   Save {discountPercentage}%
                 </div>
               )}
-              <img 
+              <motion.img 
+                variants={scaleUpImage}
                 src={product.image} 
                 alt={product.name} 
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform duration-700 hover:scale-105 cursor-zoom-in"
               />
             </div>
-          </div>
+          </motion.div>
 
           {/* Details */}
-          <div className="w-full lg:w-1/2 flex flex-col justify-center">
+          <motion.div variants={fadeInUp} className="w-full lg:w-1/2 flex flex-col justify-center">
             <span className="font-sans text-xs uppercase tracking-[0.2em] text-[var(--color-amode-gold)] mb-4 block">
               {product.fragranceFamily} Family
             </span>
@@ -214,8 +222,8 @@ const ProductDetails = () => {
                 <span className="font-medium text-[var(--color-amode-black)]">{product.category}</span>
               </li>
             </ul>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Related Products */}
         {relatedProducts.length > 0 && (
@@ -224,11 +232,17 @@ const ProductDetails = () => {
               title="You May Also Like" 
               subtitle="Explore More" 
             />
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <motion.div 
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-100px" }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+            >
               {relatedProducts.map(p => (
                 <ProductCard key={p.id} {...p} />
               ))}
-            </div>
+            </motion.div>
           </div>
         )}
       </Container>

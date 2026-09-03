@@ -14,6 +14,26 @@
 }
 
 body {
-  @apply bg-[var(--color-amode-ivory)] text-[var(--color-amode-black)] font-sans antialiased selection:bg-[var(--color-amode-gold)] selection:text-white;
+  @apply bg-[var(--color-amode-ivory)] text-[var(--color-amode-black)] font-sans antialiased selection:bg-[var(--color-amode-gold)] selection:text-[var(--color-amode-black)];
   margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+.glass {
+  @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-sm;
+}
+
+.glass-dark {
+  @apply bg-[var(--color-amode-black)]/80 backdrop-blur-md border border-white/10 shadow-lg;
 }

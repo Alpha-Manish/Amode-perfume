@@ -1,8 +1,10 @@
 import React, { useState, useRef } from 'react';
+import { motion } from 'framer-motion';
 import Container from '../components/Container';
 import SectionHeading from '../components/SectionHeading';
 import Button from '../components/Button';
 import ProductCard from '../components/ProductCard';
+import { staggerContainer, fadeInUp, revealText } from '../animations/variants';
 import { products } from '../data/products';
 
 const featuredProducts = products.filter(p => p.featured).slice(0, 4);
@@ -23,7 +25,12 @@ const Home = () => {
     <div>
       {/* 1. Luxury Hero Section & 2. Shop Now CTA */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden bg-[var(--color-amode-black)]">
-        <div className="absolute inset-0">
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.5 }}
+          transition={{ duration: 2 }}
+          className="absolute inset-0"
+        >
           <video 
             ref={videoRef}
             autoPlay 
@@ -31,12 +38,12 @@ const Home = () => {
             muted 
             playsInline
             poster="https://images.unsplash.com/photo-1615529328331-f8917597711f?q=80&w=2000&auto=format&fit=crop"
-            className="w-full h-full object-cover opacity-50"
+            className="w-full h-full object-cover"
           >
             <source src="smell.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-        </div>
+        </motion.div>
         
         {/* Sound Toggle Button */}
         <button 
@@ -55,18 +62,29 @@ const Home = () => {
             </svg>
           )}
         </button>
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto mt-20">
-          <span className="block text-[var(--color-amode-gold)] font-sans text-sm tracking-[0.3em] uppercase mb-6">
-            The New Collection
-          </span>
-          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl text-[var(--color-amode-ivory)] mb-8 leading-tight">
-            Essence of <br />Elegance
-          </h1>
-          <p className="font-sans text-gray-300 text-sm md:text-base max-w-lg mx-auto mb-10 leading-relaxed">
+        <motion.div 
+          variants={staggerContainer}
+          initial="hidden"
+          animate="show"
+          className="relative z-10 text-center px-4 max-w-4xl mx-auto mt-20"
+        >
+          <div className="overflow-hidden mb-6">
+            <motion.span variants={revealText} className="block text-[var(--color-amode-gold)] font-sans text-sm tracking-[0.3em] uppercase">
+              The New Collection
+            </motion.span>
+          </div>
+          <div className="overflow-hidden mb-8">
+            <motion.h1 variants={revealText} className="font-serif text-5xl md:text-7xl lg:text-8xl text-[var(--color-amode-ivory)] leading-tight">
+              Essence of <br />Elegance
+            </motion.h1>
+          </div>
+          <motion.p variants={fadeInUp} className="font-sans text-gray-300 text-sm md:text-base max-w-lg mx-auto mb-10 leading-relaxed">
             Discover a world of meticulously crafted fragrances that evoke memories and inspire desires.
-          </p>
-          <Button variant="accent" className="px-10 py-4">Shop The Collection</Button>
-        </div>
+          </motion.p>
+          <motion.div variants={fadeInUp}>
+            <Button variant="accent" className="px-10 py-4">Shop The Collection</Button>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* 3. Featured Perfumes */}
@@ -76,11 +94,17 @@ const Home = () => {
             title="Signature Scents" 
             subtitle="Curated Selection" 
           />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <motion.div 
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-100px" }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          >
             {featuredProducts.map((product) => (
               <ProductCard key={product.id} {...product} />
             ))}
-          </div>
+          </motion.div>
           <div className="mt-16 text-center">
             <Button variant="secondary">View All Fragrances</Button>
           </div>
@@ -90,15 +114,21 @@ const Home = () => {
       {/* 5. About AMODE preview */}
       <section className="py-24 bg-[var(--color-amode-cream)]" id="about">
         <Container>
-          <div className="flex flex-col lg:flex-row items-center gap-16">
-            <div className="lg:w-1/2">
+          <motion.div 
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-100px" }}
+            className="flex flex-col lg:flex-row items-center gap-16"
+          >
+            <motion.div variants={fadeInUp} className="lg:w-1/2">
               <img 
                 src="https://images.unsplash.com/photo-1608528577891-eb05fef397f2?q=80&w=1000&auto=format&fit=crop" 
                 alt="Perfume making process" 
                 className="w-full aspect-[4/5] object-cover shadow-lg"
               />
-            </div>
-            <div className="lg:w-1/2 text-center lg:text-left">
+            </motion.div>
+            <motion.div variants={fadeInUp} className="lg:w-1/2 text-center lg:text-left">
               <SectionHeading 
                 title="Artisanal Excellence" 
                 subtitle="Our Story" 
@@ -112,8 +142,8 @@ const Home = () => {
                 We ethically source our ingredients from around the world, ensuring that each note in our fragrances tells a story of authenticity and passion.
               </p>
               <Button variant="secondary">Discover Our Heritage</Button>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </Container>
       </section>
 
@@ -124,11 +154,17 @@ const Home = () => {
             title="Most Loved" 
             subtitle="Best Sellers" 
           />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <motion.div 
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-100px" }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          >
             {bestSellers.map((product) => (
               <ProductCard key={product.id} {...product} />
             ))}
-          </div>
+          </motion.div>
         </Container>
       </section>
 
@@ -140,22 +176,28 @@ const Home = () => {
             subtitle="Olfactive Families" 
             className="text-[var(--color-amode-ivory)]"
           />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <motion.div 
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-100px" }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
             {['Floral', 'Woody', 'Fresh', 'Oriental'].map((category, idx) => (
-              <div key={category} className="group relative aspect-square overflow-hidden cursor-pointer">
+              <motion.div variants={fadeInUp} key={category} className="group relative aspect-square overflow-hidden cursor-pointer">
                 <img 
                   src={`https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=600&auto=format&fit=crop&sig=${idx}`} 
                   alt={category}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-40"
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-60 group-hover:opacity-40"
                 />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <h3 className="font-serif text-3xl tracking-wide uppercase group-hover:text-[var(--color-amode-gold)] transition-colors duration-300">
                     {category}
                   </h3>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </Container>
       </section>
 
@@ -166,26 +208,32 @@ const Home = () => {
             title="The AMODE Standard" 
             subtitle="Why Choose Us" 
           />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mt-16">
-            <div>
+          <motion.div 
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-100px" }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-12 mt-16"
+          >
+            <motion.div variants={fadeInUp}>
               <h4 className="font-serif text-2xl text-[var(--color-amode-black)] mb-4">Cruelty-Free</h4>
               <p className="font-sans text-gray-600 text-sm leading-relaxed">
                 We never test on animals. Our products are formulated with the utmost respect for nature and wildlife.
               </p>
-            </div>
-            <div>
+            </motion.div>
+            <motion.div variants={fadeInUp}>
               <h4 className="font-serif text-2xl text-[var(--color-amode-black)] mb-4">Sustainably Sourced</h4>
               <p className="font-sans text-gray-600 text-sm leading-relaxed">
                 From ethically harvested sandalwood to organic roses, we trace every ingredient to its origin.
               </p>
-            </div>
-            <div>
+            </motion.div>
+            <motion.div variants={fadeInUp}>
               <h4 className="font-serif text-2xl text-[var(--color-amode-black)] mb-4">Long-Lasting</h4>
               <p className="font-sans text-gray-600 text-sm leading-relaxed">
                 Our high concentration Extrait de Parfum ensures your signature scent lingers beautifully all day.
               </p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </Container>
       </section>
 
@@ -196,19 +244,25 @@ const Home = () => {
             title="Words from Our Clients" 
             subtitle="Testimonials" 
           />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+          <motion.div 
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-100px" }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12"
+          >
             {[
               { text: "Santal N°5 is simply mesmerizing. It's subtle yet unforgettable.", author: "Elena R." },
               { text: "The quality is unmatched. You can truly smell the luxury in every spray.", author: "Marcus T." },
               { text: "I've finally found my signature scent. Rose Noir is dark, romantic, and perfect.", author: "Sophia L." }
             ].map((test, idx) => (
-              <div key={idx} className="p-8 border border-[var(--color-amode-cream)] bg-white shadow-sm text-center">
+              <motion.div variants={fadeInUp} key={idx} className="p-8 border border-[var(--color-amode-cream)] bg-white shadow-sm text-center">
                 <div className="text-[var(--color-amode-gold)] text-4xl mb-4 font-serif">"</div>
                 <p className="font-sans text-gray-700 italic mb-6">"{test.text}"</p>
                 <p className="font-serif text-sm tracking-widest uppercase text-[var(--color-amode-black)]">- {test.author}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </Container>
       </section>
 

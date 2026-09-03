@@ -1,9 +1,10 @@
 import React, { useState, useMemo } from 'react';
+import { motion } from 'framer-motion';
 import Container from '../components/Container';
 import ProductCard from '../components/ProductCard';
 import SectionHeading from '../components/SectionHeading';
 import { products } from '../data/products';
-
+import { staggerContainer } from '../animations/variants';
 const Shop = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFamily, setSelectedFamily] = useState('All');
@@ -127,11 +128,16 @@ const Shop = () => {
             </div>
 
             {filteredProducts.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+              <motion.div 
+                variants={staggerContainer}
+                initial="hidden"
+                animate="show"
+                className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
+              >
                 {filteredProducts.map(product => (
                   <ProductCard key={product.id} {...product} />
                 ))}
-              </div>
+              </motion.div>
             ) : (
               <div className="text-center py-20">
                 <p className="font-serif text-2xl text-[var(--color-amode-black)] mb-4">No fragrances found.</p>
