@@ -123,7 +123,7 @@ const Home = () => {
           >
             <motion.div variants={fadeInUp} className="lg:w-1/2">
               <img 
-                src="https://images.unsplash.com/photo-1608528577891-eb05fef397f2?q=80&w=1000&auto=format&fit=crop" 
+                src="main.webp" 
                 alt="Perfume making process" 
                 className="w-full aspect-[4/5] object-cover shadow-lg"
               />
