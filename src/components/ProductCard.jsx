@@ -1,11 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { fadeInUp } from '../animations/variants';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 
 const ProductCard = ({ image, name, price, description, slug, ...productRest }) => {
   const { addToCart } = useCart();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
   const product = { image, name, price, description, slug, ...productRest };
 
   return (
@@ -30,7 +34,11 @@ const ProductCard = ({ image, name, price, description, slug, ...productRest }) 
               whileTap={{ scale: 0.98 }}
               onClick={(e) => {
                 e.preventDefault();
-                addToCart(product, 1);
+                if (user) {
+                  addToCart(product, 1);
+                } else {
+                  navigate('/login', { state: { redirectTo: location.pathname, pendingProduct: product, pendingQuantity: 1 } });
+                }
               }}
               className="w-full bg-[var(--color-amode-ivory)] text-[var(--color-amode-black)] px-6 py-3 text-xs tracking-[0.2em] uppercase font-medium hover:bg-[var(--color-amode-gold)] hover:text-white transition-colors duration-300 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100"
             >

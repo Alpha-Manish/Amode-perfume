@@ -82,7 +82,7 @@ const Home = () => {
             Discover a world of meticulously crafted fragrances that evoke memories and inspire desires.
           </motion.p>
           <motion.div variants={fadeInUp}>
-            <Button variant="accent" className="px-10 py-4">Shop The Collection</Button>
+            <Button to="/shop" variant="accent" className="px-10 py-4">Shop The Collection</Button>
           </motion.div>
         </motion.div>
       </section>
@@ -106,7 +106,7 @@ const Home = () => {
             ))}
           </motion.div>
           <div className="mt-16 text-center">
-            <Button variant="secondary">View All Fragrances</Button>
+            <Button to="/shop" variant="secondary">View All Fragrances</Button>
           </div>
         </Container>
       </section>
@@ -141,7 +141,7 @@ const Home = () => {
               <p className="font-sans text-gray-600 leading-relaxed mb-10">
                 We ethically source our ingredients from around the world, ensuring that each note in our fragrances tells a story of authenticity and passion.
               </p>
-              <Button variant="secondary">Discover Our Heritage</Button>
+              <Button to="/about" variant="secondary">Discover Our Heritage</Button>
             </motion.div>
           </motion.div>
         </Container>
@@ -261,7 +261,7 @@ const Home = () => {
               { text: "The quality is unmatched. You can truly smell the luxury in every spray.", author: "Marcus T." },
               { text: "I've finally found my signature scent. Rose Noir is dark, romantic, and perfect.", author: "Sophia L." }
             ].map((test, idx) => (
-              <motion.div variants={fadeInUp} key={idx} className="p-8 border border-[var(--color-amode-cream)] bg-white shadow-sm text-center">
+              <motion.div variants={fadeInUp} key={idx} className="p-8 border border-[var(--color-amode-cream)] bg-white shadow-sm text-center hover:-translate-y-2 hover:shadow-md transition-all duration-500">
                 <div className="text-[var(--color-amode-gold)] text-4xl mb-4 font-serif">"</div>
                 <p className="font-sans text-gray-700 italic mb-6">"{test.text}"</p>
                 <p className="font-serif text-sm tracking-widest uppercase text-[var(--color-amode-black)]">- {test.author}</p>
@@ -272,15 +272,21 @@ const Home = () => {
       </section>
 
       {/* 9. Final Shop Now CTA */}
-      <section className="py-32 bg-[var(--color-amode-black)] text-center">
-        <Container>
+      <section className="relative py-32 text-center flex items-center justify-center min-h-[60vh]">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=1600&auto=format&fit=crop')" }}
+        >
+          <div className="absolute inset-0 bg-black/70"></div>
+        </div>
+        <Container className="relative z-10">
           <h2 className="font-serif text-4xl md:text-5xl text-[var(--color-amode-ivory)] mb-6">
             Find Your Signature Scent
           </h2>
-          <p className="font-sans text-gray-400 max-w-xl mx-auto mb-10">
+          <p className="font-sans text-gray-300 max-w-xl mx-auto mb-10 leading-relaxed">
             Explore our full collection of artisanal fragrances and elevate your daily ritual.
           </p>
-          <Button variant="accent" className="px-12 py-4">Shop Now</Button>
+          <Button to="/shop" variant="accent" className="px-12 py-4">Shop Now</Button>
         </Container>
       </section>
     </div>

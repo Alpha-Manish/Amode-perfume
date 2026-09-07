@@ -12,7 +12,10 @@ import Checkout from './pages/Checkout';
 import OrderConfirmation from './pages/OrderConfirmation';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import { CartProvider } from './context/CartContext';
+import { AuthProvider } from './context/AuthContext';
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -27,6 +30,8 @@ const AnimatedRoutes = () => {
         <Route path="/cart" element={<PageTransition><Cart /></PageTransition>} />
         <Route path="/checkout" element={<PageTransition><Checkout /></PageTransition>} />
         <Route path="/order-confirmation" element={<PageTransition><OrderConfirmation /></PageTransition>} />
+        <Route path="/login" element={<PageTransition><Login /></PageTransition>} />
+        <Route path="/register" element={<PageTransition><Register /></PageTransition>} />
       </Routes>
     </AnimatePresence>
   );
@@ -34,8 +39,9 @@ const AnimatedRoutes = () => {
 
 function App() {
   return (
-    <CartProvider>
-      <BrowserRouter>
+    <AuthProvider>
+      <CartProvider>
+        <BrowserRouter>
         <div className="min-h-screen bg-[var(--color-amode-ivory)] flex flex-col">
           <Navbar />
           <main className="flex-grow">
@@ -43,8 +49,9 @@ function App() {
           </main>
           <Footer />
         </div>
-      </BrowserRouter>
-    </CartProvider>
+        </BrowserRouter>
+      </CartProvider>
+    </AuthProvider>
   );
 }
 

@@ -1,14 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import Container from '../components/Container';
 import Button from '../components/Button';
 import SectionHeading from '../components/SectionHeading';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import { staggerContainer, fadeInUp } from '../animations/variants';
 
 const Cart = () => {
+  const navigate = useNavigate();
   const { cartItems, removeFromCart, updateQuantity, clearCart, cartTotal, cartItemCount } = useCart();
+  const { user } = useAuth();
+
+  const handleCheckout = () => {
+    navigate(user ? '/checkout' : '/login', user ? undefined : { state: { redirectTo: '/checkout' } });
+  };
 
   if (cartItems.length === 0) {
     return (
@@ -153,9 +160,7 @@ const Cart = () => {
                 <span className="font-serif text-3xl text-[var(--color-amode-black)]">${cartTotal.toFixed(2)}</span>
               </div>
 
-              <Link to="/checkout" className="w-full block">
-                <Button variant="primary" className="w-full">Proceed to Checkout</Button>
-              </Link>
+              <Button variant="primary" className="w-full" onClick={handleCheckout}>Proceed to Checkout</Button>
               
               <p className="font-sans text-xs text-center text-gray-400 mt-4 leading-relaxed">
                 Taxes and shipping calculated at checkout. <br/> Complimentary shipping on orders over $150.

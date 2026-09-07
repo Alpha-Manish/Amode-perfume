@@ -7,6 +7,7 @@ import ProductCard from '../components/ProductCard';
 import SectionHeading from '../components/SectionHeading';
 import { products } from '../data/products';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import { staggerContainer, fadeInUp, scaleUpImage } from '../animations/variants';
 
 const ProductDetails = () => {
@@ -16,6 +17,7 @@ const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const { addToCart } = useCart();
+  const { user } = useAuth();
 
   useEffect(() => {
     // In a real app, this would be an API call
@@ -70,12 +72,20 @@ const ProductDetails = () => {
   };
 
   const handleAddToCart = () => {
-    addToCart(product, quantity);
+    if (user) {
+      addToCart(product, quantity);
+      return;
+    }
+    navigate('/login', { state: { redirectTo: `/product/${product.slug}`, pendingProduct: product, pendingQuantity: quantity } });
   };
 
   const handleBuyNow = () => {
-    addToCart(product, quantity);
-    navigate('/cart');
+    if (user) {
+      addToCart(product, quantity);
+      navigate('/cart');
+      return;
+    }
+    navigate('/login', { state: { action: 'buy', pendingProduct: product, pendingQuantity: quantity } });
   };
 
   return (

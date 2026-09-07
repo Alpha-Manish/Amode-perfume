@@ -20,7 +20,7 @@ const About = () => {
             className="relative py-32 px-8 flex items-center justify-center min-h-[500px]"
           >
             <div 
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
               style={{ backgroundImage: "url('https://images.unsplash.com/photo-1615529328331-f8917597711f?q=80&w=1600&auto=format&fit=crop')" }}
             >
               <div className="absolute inset-0 bg-black/50"></div>
@@ -42,7 +42,7 @@ const About = () => {
             className="relative py-32 px-8 flex items-center justify-center min-h-[500px]"
           >
             <div 
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
               style={{ backgroundImage: "url('https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=1600&auto=format&fit=crop')" }}
             >
               <div className="absolute inset-0 bg-black/60"></div>
@@ -64,10 +64,10 @@ const About = () => {
             className="relative py-32 px-8 flex items-center justify-center min-h-[500px]"
           >
             <div 
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-              style={{ backgroundImage: "url('https://images.unsplash.com/photo-1608528577891-eb05fef397f2?q=80&w=1600&auto=format&fit=crop')" }}
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
+              style={{ backgroundImage: "url('https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=1600&auto=format&fit=crop')" }}
             >
-              <div className="absolute inset-0 bg-black/60"></div>
+              <div className="absolute inset-0 bg-black/50"></div>
             </div>
             <div className="relative z-10 text-center text-[var(--color-amode-ivory)]">
               <motion.h2 variants={fadeInUp} className="font-serif text-4xl mb-8 tracking-wide text-white">Uncompromising Quality</motion.h2>
@@ -109,7 +109,7 @@ const About = () => {
             className="relative py-32 px-8 flex items-center justify-center min-h-[500px]"
           >
             <div 
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
               style={{ backgroundImage: "url('https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?q=80&w=1600&auto=format&fit=crop')" }}
             >
               <div className="absolute inset-0 bg-black/60"></div>
